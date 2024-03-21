@@ -2,6 +2,7 @@ using ExamenLibrosMvcCore.Data;
 using ExamenLibrosMvcCore.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using ExamenLibrosMvcCore.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddAuthentication(options =>
 string connectionString =
     builder.Configuration.GetConnectionString("SqlLibros");
 
+builder.Services.AddTransient<HelperPathProvider>();
 
 builder.Services.AddTransient<RepositoryUsuarios>();
 builder.Services.AddTransient<RepositoryLibros>();

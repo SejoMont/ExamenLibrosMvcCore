@@ -12,7 +12,7 @@
     {
         <div class="col">
             <div class="card">
-                <img src="~/images/@item.Portada" class="card-img-top" style="height:300px; object-fit:cover">
+                <img src="@HelperPathProvider.MapUrlPath(@item.Portada, Folders.Images)" class="card-img-top" style="height:300px; object-fit:cover">
                 <div class="card-body">
                     <h5 class="card-title">@item.Titulo</h5>
                     <p class="card-text"><strong>Editorial: </strong>@item.Editorial</p>

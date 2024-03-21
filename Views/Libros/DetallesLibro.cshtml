@@ -39,7 +39,7 @@
             @Html.DisplayNameFor(model => model.Portada)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.Portada" style="width:500px" />
+            <img src="@HelperPathProvider.MapUrlPath(@Model.Portada, Folders.Images)" style="width:500px" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Resumen)
