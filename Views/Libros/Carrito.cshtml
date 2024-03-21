@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ExamenLibrosMvcCore.Models.Libro>
+
+@{
+    ViewData["Title"] = "Carrito";
+}
+
+<h1>Carrito de Compras</h1>
+
+@if (Model != null && Model.Any())
+{
+    <form asp-controller="Libros" asp-action="Compra" method="post">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <input type="hidden" name="idlibros[@i]" value="@Model.ElementAt(i).IdLibro" />
+            <input type="hidden" name="iduser" value="@Context.User.FindFirst("id").Value" />
+        }
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Autor</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Titulo)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Autor)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Precio) €</td>
+                        <td>
+                            <input type="number" name="cantidades[@i]" value="1" min="1" class="form-control" />
+                        </td>
+                        <td>
+                            <a asp-controller="Libros" asp-action="Carrito" asp-route-idLibroEliminar="@Model.ElementAt(i).IdLibro" class="btn btn-outline-danger">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+    </form>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        Tu carrito está vacío.
+    </div>
+}

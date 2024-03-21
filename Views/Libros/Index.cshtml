@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ExamenLibrosMvcCore.Models.Libro>
+
+@{
+    ViewData["Title"] = "LibrosGenero";
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+}
+
+<h1>LIBROS</h1>
+<br /><br />
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card">
+                <img src="~/images/@item.Portada" class="card-img-top" style="height:300px; object-fit:cover">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Titulo</h5>
+                    <p class="card-text"><strong>Editorial: </strong>@item.Editorial</p>
+                </div>
+                <a asp-controller="Libros"
+                   asp-action="DetallesLibro"
+                   asp-route-idLibro="@item.IdLibro"
+                   class="btn btn-outline-info">
+                    Detalles
+                </a>
+                @if (carrito != null && carrito.Contains(item.IdLibro))
+                {
+                    <a class="btn  btn-outline-success"
+                       asp-controller="Libros"
+                       asp-action="Carrito">
+                        Añadido al Carrito✅
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Libros"
+                       asp-action="GuardarLibroCarrito"
+                       asp-route-idLibro="@item.IdLibro"
+                       class="btn btn-outline-primary">
+                        Añadir al Carrito 🛒
+                    </a>
+                }
+            </div>
+        </div>
+    }
+</div>
+

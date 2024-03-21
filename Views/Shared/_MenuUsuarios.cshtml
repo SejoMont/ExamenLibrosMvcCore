@@ -1,0 +1,61 @@
+﻿@if (Context.User.Identity.IsAuthenticated)
+{
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+    if (carrito != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Libros"
+               asp-action="Carrito">
+                Carrito: @carrito.Count
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="Libros"
+               asp-action="Carrito">
+                Carrito: 0
+            </a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link"
+           asp-controller="Libros"
+           asp-action="ComprasUsuario"
+           asp-route-iduser="@Context.User.FindFirst("id").Value">
+            Compras
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Managed"
+           asp-action="PerfilUsuario"
+           class="nav-link">
+            <span style="color:blue">
+                @Context.User.FindFirst("Nombre").Value
+            </span>
+            <img src="~/images/@Context.User.FindFirst("Foto").Value" class="fotoPerfil" />
+        </a>
+    </li>
+    <li class="nav-item">
+        <a asp-controller="Managed"
+           asp-action="Logout"
+           class="nav-link text-danger">
+            Log out
+        </a>
+    </li>
+}
+else
+{
+    //EFECTO OPTICO DEL LOGIN
+    <li class="nav-item">
+        <a asp-controller="Managed"
+           asp-action="PerfilUsuario"
+           class="nav-link">
+            Log In
+        </a>
+    </li>
+}

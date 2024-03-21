@@ -1,0 +1,23 @@
+﻿﻿@using System.Security.Claims
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <img src="~/images/@Context.User.FindFirst("Foto").Value" style="width: 150px"/>
+    </li>
+    <li class="list-group-item">
+        <h1>@Context.User.FindFirst("Nombre").Value @Context.User.FindFirst("Apellidos").Value</h1>
+    </li>
+    <li class="list-group-item">
+        Email: @Context.User.FindFirst("Email").Value
+    </li>
+    <li class="list-group-item">
+        Id: @Context.User.FindFirst("id").Value
+    </li>
+</ul>
+@* <h2>Todos los Claims</h2>
+<ul>
+    @foreach (Claim claim in Context.User.Claims)
+    {
+        <li>@claim.Type: <b>@claim.Value</b></li>
+    }
+</ul> *@
